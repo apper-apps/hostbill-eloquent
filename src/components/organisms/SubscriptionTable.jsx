@@ -49,7 +49,7 @@ const SubscriptionTable = () => {
     loadData();
   }, []);
 
-  const handleStatusChange = async (subscriptionId, newStatus) => {
+const handleStatusChange = async (subscriptionId, newStatus) => {
     try {
       await subscriptionService.update(subscriptionId, { status: newStatus });
       setSubscriptions(prev => prev.map(sub => 
@@ -58,6 +58,18 @@ const SubscriptionTable = () => {
       toast.success(`Subscription ${newStatus} successfully`);
     } catch (err) {
       toast.error("Failed to update subscription status");
+    }
+  };
+
+  const handlePaymentRetry = async (subscriptionId) => {
+    try {
+      const updatedSubscription = await subscriptionService.retryPayment(subscriptionId);
+      setSubscriptions(prev => prev.map(sub => 
+        sub.Id === subscriptionId ? updatedSubscription : sub
+      ));
+      toast.success("Payment retry successful");
+    } catch (err) {
+      toast.error(`Payment retry failed: ${err.message}`);
     }
   };
 
@@ -172,8 +184,22 @@ const SubscriptionTable = () => {
                           {subscription.billingCycle}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <StatusBadge status={subscription.status} />
+<td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2">
+                          <StatusBadge status={subscription.status} />
+                          {subscription.paymentStatus === 'failed' && (
+                            <div className="flex items-center space-x-1">
+                              <ApperIcon name="AlertCircle" className="w-4 h-4 text-red-500" />
+                              <span className="text-xs text-red-600 font-medium">Payment Failed</span>
+                            </div>
+                          )}
+                          {subscription.paymentStatus === 'pending' && (
+                            <div className="flex items-center space-x-1">
+                              <ApperIcon name="Clock" className="w-4 h-4 text-yellow-500" />
+                              <span className="text-xs text-yellow-600 font-medium">Payment Pending</span>
+                            </div>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">
@@ -186,8 +212,33 @@ const SubscriptionTable = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {format(new Date(subscription.renewalDate), "MMM dd, yyyy")}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+<td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex items-center space-x-2">
+                          {/* Payment method indicator */}
+                          <div className="flex items-center space-x-1">
+                            <ApperIcon 
+                              name={subscription.paymentMethod === 'stripe' ? 'CreditCard' : 'Building2'} 
+                              className="w-4 h-4 text-gray-500" 
+                            />
+                            <span className="text-xs text-gray-500 capitalize">
+                              {subscription.paymentMethod === 'stripe' ? 'Card' : 'Bank'}
+                            </span>
+                          </div>
+                          
+                          {/* Payment retry button for failed payments */}
+                          {subscription.paymentStatus === 'failed' && (
+                            <Button
+                              variant="warning"
+                              size="sm"
+                              onClick={() => handlePaymentRetry(subscription.Id)}
+                              title="Retry payment"
+                            >
+                              <ApperIcon name="RefreshCw" className="w-4 h-4 mr-1" />
+                              Retry
+                            </Button>
+                          )}
+                          
+                          {/* Status management buttons */}
                           {subscription.status === "active" && (
                             <Button
                               variant="secondary"
@@ -208,6 +259,7 @@ const SubscriptionTable = () => {
                               Activate
                             </Button>
                           )}
+                          
                           <Button
                             variant="ghost"
                             size="sm"

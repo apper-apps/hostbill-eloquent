@@ -13,8 +13,8 @@ const Subscriptions = () => {
           <h1 className="text-3xl font-bold text-gray-900 font-display">
             Subscriptions
           </h1>
-          <p className="text-gray-600 mt-1">
-            Manage customer hosting subscriptions and billing cycles
+<p className="text-gray-600 mt-1">
+            Manage customer hosting subscriptions with integrated Stripe and GoCardless payment processing
           </p>
         </div>
       </div>
