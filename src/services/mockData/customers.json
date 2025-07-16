@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 1,
+    "name": "John Smith",
+    "email": "john@techstartup.com",
+    "company": "Tech Startup Inc",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "status": "active"
+  },
+  {
+    "Id": 2,
+    "name": "Sarah Johnson",
+    "email": "sarah@webagency.com",
+    "company": "Creative Web Agency",
+    "createdAt": "2024-02-20T14:30:00Z",
+    "status": "active"
+  },
+  {
+    "Id": 3,
+    "name": "Michael Brown",
+    "email": "mike@ecommerce.com",
+    "company": "E-Commerce Solutions",
+    "createdAt": "2024-03-10T09:15:00Z",
+    "status": "active"
+  },
+  {
+    "Id": 4,
+    "name": "Emily Davis",
+    "email": "emily@blogworld.com",
+    "company": "Blog World",
+    "createdAt": "2024-01-05T16:45:00Z",
+    "status": "active"
+  },
+  {
+    "Id": 5,
+    "name": "David Wilson",
+    "email": "david@portfolio.com",
+    "company": null,
+    "createdAt": "2024-03-25T11:20:00Z",
+    "status": "active"
+  },
+  {
+    "Id": 6,
+    "name": "Lisa Anderson",
+    "email": "lisa@consulting.com",
+    "company": "Anderson Consulting",
+    "createdAt": "2024-02-28T13:10:00Z",
+    "status": "active"
+  }
+]

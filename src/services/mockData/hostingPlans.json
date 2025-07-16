@@ -1,0 +1,97 @@
+[
+  {
+    "Id": 1,
+    "name": "Basic Plan",
+    "price": 9.99,
+    "billingCycle": "monthly",
+    "features": {
+      "storage": "1GB",
+      "bandwidth": "10GB",
+      "domains": 1,
+      "email": 5,
+      "ssl": true
+    },
+    "limits": {
+      "storage": 1024,
+      "bandwidth": 10240,
+      "domains": 1,
+      "email": 5
+    }
+  },
+  {
+    "Id": 2,
+    "name": "Pro Plan",
+    "price": 19.99,
+    "billingCycle": "monthly",
+    "features": {
+      "storage": "5GB",
+      "bandwidth": "50GB",
+      "domains": 5,
+      "email": 25,
+      "ssl": true
+    },
+    "limits": {
+      "storage": 5120,
+      "bandwidth": 51200,
+      "domains": 5,
+      "email": 25
+    }
+  },
+  {
+    "Id": 3,
+    "name": "Enterprise Plan",
+    "price": 49.99,
+    "billingCycle": "monthly",
+    "features": {
+      "storage": "Unlimited",
+      "bandwidth": "Unlimited",
+      "domains": "Unlimited",
+      "email": "Unlimited",
+      "ssl": true
+    },
+    "limits": {
+      "storage": -1,
+      "bandwidth": -1,
+      "domains": -1,
+      "email": -1
+    }
+  },
+  {
+    "Id": 4,
+    "name": "Basic Annual",
+    "price": 99.99,
+    "billingCycle": "yearly",
+    "features": {
+      "storage": "1GB",
+      "bandwidth": "10GB",
+      "domains": 1,
+      "email": 5,
+      "ssl": true
+    },
+    "limits": {
+      "storage": 1024,
+      "bandwidth": 10240,
+      "domains": 1,
+      "email": 5
+    }
+  },
+  {
+    "Id": 5,
+    "name": "Pro Annual",
+    "price": 199.99,
+    "billingCycle": "yearly",
+    "features": {
+      "storage": "5GB",
+      "bandwidth": "50GB",
+      "domains": 5,
+      "email": 25,
+      "ssl": true
+    },
+    "limits": {
+      "storage": 5120,
+      "bandwidth": 51200,
+      "domains": 5,
+      "email": 25
+    }
+  }
+]

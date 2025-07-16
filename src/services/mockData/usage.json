@@ -1,0 +1,44 @@
+[
+  {
+    "subscriptionId": 1,
+    "bandwidth": 25.5,
+    "storage": 2.1,
+    "cpu": 15.2,
+    "period": "2024-03"
+  },
+  {
+    "subscriptionId": 2,
+    "bandwidth": 180.3,
+    "storage": 12.8,
+    "cpu": 45.7,
+    "period": "2024-03"
+  },
+  {
+    "subscriptionId": 3,
+    "bandwidth": 5.2,
+    "storage": 0.8,
+    "cpu": 8.1,
+    "period": "2024-03"
+  },
+  {
+    "subscriptionId": 4,
+    "bandwidth": 85.6,
+    "storage": 8.5,
+    "cpu": 22.3,
+    "period": "2024-03"
+  },
+  {
+    "subscriptionId": 5,
+    "bandwidth": 3.1,
+    "storage": 0.5,
+    "cpu": 4.2,
+    "period": "2024-03"
+  },
+  {
+    "subscriptionId": 6,
+    "bandwidth": 32.8,
+    "storage": 3.2,
+    "cpu": 18.9,
+    "period": "2024-03"
+  }
+]
