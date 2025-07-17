@@ -59,20 +59,16 @@ const CustomerGrid = () => {
     setShowEditModal(true);
   };
 
-  const handleSaveCustomer = async (customerId, formData) => {
-    try {
-      const updatedCustomer = await customerService.update(customerId, formData);
-      
-      setCustomers(prevCustomers =>
-        prevCustomers.map(customer =>
-          customer.Id === customerId ? updatedCustomer : customer
-        )
-      );
-      
-      return updatedCustomer;
-    } catch (error) {
-      throw error;
-    }
+const handleSaveCustomer = async (customerId, formData) => {
+    const updatedCustomer = await customerService.update(customerId, formData);
+    
+    setCustomers(prevCustomers =>
+      prevCustomers.map(customer =>
+        customer.Id === customerId ? updatedCustomer : customer
+      )
+    );
+    
+    return updatedCustomer;
   };
 
   const handleCloseDetailModal = () => {
