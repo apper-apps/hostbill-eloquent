@@ -39,9 +39,8 @@
       #f3f4f6 80px
     );
     background-size: 200px;
-    animation: shimmer 2s infinite;
+animation: shimmer 2s infinite;
   }
-}
 }
 
 @keyframes shimmer {
