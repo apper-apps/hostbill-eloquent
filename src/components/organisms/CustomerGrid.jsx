@@ -11,6 +11,9 @@ import Empty from "@/components/ui/Empty";
 import { customerService } from "@/services/api/customerService";
 import { subscriptionService } from "@/services/api/subscriptionService";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
+import CustomerDetailModal from "@/components/organisms/CustomerDetailModal";
+import CustomerEditModal from "@/components/organisms/CustomerEditModal";
 
 const CustomerGrid = () => {
   const [customers, setCustomers] = useState([]);
@@ -18,6 +21,9 @@ const CustomerGrid = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const loadData = async () => {
     try {
@@ -37,11 +43,47 @@ const CustomerGrid = () => {
     } finally {
       setLoading(false);
     }
-  };
+};
 
   useEffect(() => {
     loadData();
   }, []);
+
+  const handleViewCustomer = (customer) => {
+    setSelectedCustomer(customer);
+    setShowDetailModal(true);
+  };
+
+  const handleEditCustomer = (customer) => {
+    setSelectedCustomer(customer);
+    setShowEditModal(true);
+  };
+
+  const handleSaveCustomer = async (customerId, formData) => {
+    try {
+      const updatedCustomer = await customerService.update(customerId, formData);
+      
+      setCustomers(prevCustomers =>
+        prevCustomers.map(customer =>
+          customer.Id === customerId ? updatedCustomer : customer
+        )
+      );
+      
+      return updatedCustomer;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleCloseDetailModal = () => {
+    setShowDetailModal(false);
+    setSelectedCustomer(null);
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+    setSelectedCustomer(null);
+  };
 
   const getCustomerStats = (customerId) => {
     const customerSubs = subscriptions.filter(sub => sub.customerId === customerId);
@@ -142,13 +184,22 @@ const CustomerGrid = () => {
                     <div className="text-xs text-gray-500 text-center">
                       Customer since {format(new Date(customer.createdAt), "MMM yyyy")}
                     </div>
-                    
-                    <div className="flex space-x-2">
-                      <Button variant="primary" size="sm" className="flex-1">
+<div className="flex space-x-2">
+                      <Button 
+                        variant="primary" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => handleViewCustomer(customer)}
+                      >
                         <ApperIcon name="Eye" className="w-4 h-4 mr-1" />
                         View
                       </Button>
-                      <Button variant="secondary" size="sm" className="flex-1">
+                      <Button 
+                        variant="secondary" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => handleEditCustomer(customer)}
+                      >
                         <ApperIcon name="Edit" className="w-4 h-4 mr-1" />
                         Edit
                       </Button>
@@ -157,9 +208,23 @@ const CustomerGrid = () => {
                 </Card>
               </motion.div>
             );
-          })}
+})}
         </div>
       )}
+      
+      <CustomerDetailModal
+        customer={selectedCustomer}
+        subscriptions={subscriptions}
+        isOpen={showDetailModal}
+        onClose={handleCloseDetailModal}
+      />
+      
+      <CustomerEditModal
+        customer={selectedCustomer}
+        isOpen={showEditModal}
+        onClose={handleCloseEditModal}
+        onSave={handleSaveCustomer}
+      />
     </div>
   );
 };
